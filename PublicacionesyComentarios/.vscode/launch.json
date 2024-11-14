@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-PublicacionesyComentariosApplication<PublicacionesyComentarios>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.example.PublicacionesyComentarios.PublicacionesyComentariosApplication",
+            "projectName": "PublicacionesyComentarios",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
