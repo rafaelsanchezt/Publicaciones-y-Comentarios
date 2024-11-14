@@ -7,7 +7,7 @@ import java.util.List;
 
 @Document(collection = "posts")
 public class Post {
-    
+
     @Id
     private String id;
     private String userId;

@@ -1,10 +1,8 @@
 package com.example.PublicacionesyComentarios.repository;
 
 import com.example.PublicacionesyComentarios.model.Post;
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 
-@Repository
-public interface PostRepository extends MongoRepository<Post, String> {
-    // Aquí puedes agregar consultas personalizadas si las necesitas
+public interface PostRepository extends ReactiveMongoRepository<Post, String> {
+    // Puedes agregar consultas personalizadas si es necesario
 }
