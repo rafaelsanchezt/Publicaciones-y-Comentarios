@@ -20,27 +20,24 @@ public class PostService {
     }
 
     // Crear un post
-  // En PostService.java
-public Mono<Post> createPost(String content, List<String> media, List<String> tags) {
-    return Mono.just("userId-de-prueba")  // Simulación del ID de usuario
-        .flatMap(userId -> {
-            Post post = new Post();
-            post.setUserId(userId);
-            post.setContent(content);
-            post.setCreatedAt(LocalDateTime.now());
-            post.setUpdatedAt(LocalDateTime.now());
-            post.setLikes(0);
-            post.setDislikes(0);
-            post.setCommentsCount(0);
-            post.setReportStatus(false);
-            post.setMedia(media != null ? media : new ArrayList<>());
-            post.setTags(tags != null ? tags : new ArrayList<>());  // Asignar los tags
+    public Mono<Post> createPost(String content, List<String> media, List<String> tags) {
+        return Mono.just("userId-de-prueba")  // Simulación del ID de usuario
+            .flatMap(userId -> {
+                Post post = new Post();
+                post.setUserId(userId);
+                post.setContent(content);
+                post.setCreatedAt(LocalDateTime.now());
+                post.setUpdatedAt(LocalDateTime.now());
+                post.setLikes(0);
+                post.setDislikes(0);
+                post.setCommentsCount(0);
+                post.setReportStatus(false);
+                post.setMedia(media != null ? media : new ArrayList<>());
+                post.setTags(tags != null ? tags : new ArrayList<>());
 
-            return postRepository.save(post);
-        });
-}
-
-
+                return postRepository.save(post);
+            });
+    }
 
     // Incrementar likes
     public Mono<Post> incrementLikes(String postId) {
