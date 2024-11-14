@@ -1,6 +1,6 @@
 package com.example.PublicacionesyComentarios.controllers;
 import com.example.PublicacionesyComentarios.service.PostService;
-import com.example.PublicacionesyComentarios.model.post;
+import com.example.PublicacionesyComentarios.model.Post;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +21,7 @@ public class PostController {
     }
 
     @PostMapping
-    public Mono<ResponseEntity<post>> createPost(@RequestBody Map<String, String> request) {
+    public Mono<ResponseEntity<Post>> createPost(@RequestBody Map<String, String> request) {
         String content = request.get("content");
         return postService.createPost(content)
             .map(post -> ResponseEntity.status(HttpStatus.CREATED).body(post));

@@ -1,5 +1,5 @@
 package com.example.PublicacionesyComentarios.service;
-import com.example.PublicacionesyComentarios.model.post;
+import com.example.PublicacionesyComentarios.model.Post;
 import com.example.PublicacionesyComentarios.repository.PostRepository;
 import org.springframework.stereotype.Service; 
 import reactor.core.publisher.Mono;
@@ -16,14 +16,14 @@ public class PostService {
         this.userService = userService;
     }
 
-    public Mono<post> createPost(String content) {
+    public Mono<Post> createPost(String content) {
         return userService.getUserId()
             .flatMap(userId -> {
-                post post = new post();
+                Post post = new Post();
                 post.setUserId(userId);
                 post.setContent(content);
                 post.setCreatedAt(LocalDateTime.now());
-                return postRepository.save(post);
+                return postRepository.save(Post);
             });
     }
 }

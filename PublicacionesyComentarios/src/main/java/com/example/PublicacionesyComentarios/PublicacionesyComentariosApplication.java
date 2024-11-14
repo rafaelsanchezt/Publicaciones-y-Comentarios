@@ -5,9 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class PublicacionesyComentariosApplication {
-
-	public static void main(String[] args) {
-		SpringApplication.run(PublicacionesyComentariosApplication.class, args);
-	}
-
+    public static void main(String[] args) {
+        SpringApplication.run(PublicacionesyComentariosApplication.class, args);
+    }
 }

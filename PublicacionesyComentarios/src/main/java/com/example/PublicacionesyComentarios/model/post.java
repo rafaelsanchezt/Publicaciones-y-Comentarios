@@ -5,43 +5,40 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Document(collection = "posts") // Define the collection in MongoDB
-public class post {
-
+@Document(collection = "posts")
+public class Post {
+    
     @Id
     private String id;
     private String userId;
     private String content;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
     private List<String> media; // Lista de URLs de imágenes/videos
     private List<String> tags; // Lista de tags
-    private int likes; // Número de "me gusta"
-    private int dislikes; // Número de "no me gusta"
-    private int commentsCount; // Número de comentarios
-    private boolean reportStatus; // Indica si la publicación fue reportada o no
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    private int likes;
+    private int dislikes;
+    private int commentsCount;
+    private boolean reportStatus; // Indica si fue reportado
 
-    // Constructor vacío necesario para algunos frameworks
-    public post() {}
+    // Constructor vacío
+    public Post() {}
 
     // Constructor con parámetros
-    public post(String userId, String content, LocalDateTime createdAt, LocalDateTime updatedAt, 
-                List<String> media, List<String> tags, int likes, int dislikes, 
-                int commentsCount, boolean reportStatus) {
+    public Post(String userId, String content, List<String> media, List<String> tags, LocalDateTime createdAt, LocalDateTime updatedAt, int likes, int dislikes, int commentsCount, boolean reportStatus) {
         this.userId = userId;
         this.content = content;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
         this.media = media;
         this.tags = tags;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
         this.likes = likes;
         this.dislikes = dislikes;
         this.commentsCount = commentsCount;
         this.reportStatus = reportStatus;
     }
 
-    // Getters y Setters
-
+    // Getters y setters
     public String getId() {
         return id;
     }
@@ -66,22 +63,6 @@ public class post {
         this.content = content;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
     public List<String> getMedia() {
         return media;
     }
@@ -96,6 +77,22 @@ public class post {
 
     public void setTags(List<String> tags) {
         this.tags = tags;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     public int getLikes() {
