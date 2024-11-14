@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestBody;
 import reactor.core.publisher.Mono;
 import java.util.Map;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 @RestController
 @RequestMapping("/posts")
@@ -29,4 +31,27 @@ public class PostController {
         return postService.createPost(content)
             .map(post -> ResponseEntity.status(HttpStatus.CREATED).body(post));
     }
+    
+
+    // Incrementar likes
+    @PostMapping("/{postId}/like")
+    public Mono<ResponseEntity<Post>> likePost(@PathVariable String postId) {
+        return postService.incrementLikes(postId)
+            .map(post -> ResponseEntity.ok(post));
+    }
+
+    // Incrementar dislikes
+    @PostMapping("/{postId}/dislike")
+    public Mono<ResponseEntity<Post>> dislikePost(@PathVariable String postId) {
+        return postService.incrementDislikes(postId)
+            .map(post -> ResponseEntity.ok(post));
+    }
+
 }
+
+
+
+
+
+
+

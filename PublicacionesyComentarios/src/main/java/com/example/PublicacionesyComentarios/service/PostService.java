@@ -10,29 +10,46 @@ import java.time.LocalDateTime;
 public class PostService {
 
     private final PostRepository postRepository;
+    private final UserService userService;
 
-    // Constructor
-    public PostService(PostRepository postRepository) {
+    public PostService(PostRepository postRepository, UserService userService) {
         this.postRepository = postRepository;
+        this.userService = userService;
     }
 
-    // Crear un post sin depender del servicio de usuario
+    // Crear un post
     public Mono<Post> createPost(String content) {
-        // Usar un userId de prueba
-        String testUserId = "userId-de-prueba";
+        return userService.getUserId()
+            .flatMap(userId -> {
+                Post post = new Post();
+                post.setUserId(userId);
+                post.setContent(content);
+                post.setCreatedAt(LocalDateTime.now());
+                post.setUpdatedAt(LocalDateTime.now());
+                post.setLikes(0); // Inicializar en 0
+                post.setDislikes(0); // Inicializar en 0
+                post.setCommentsCount(0); // Inicializar en 0
+                post.setReportStatus(false); // Inicializar en false
 
-        // Crear el objeto Post
-        Post post = new Post();
-        post.setUserId(testUserId);
-        post.setContent(content);
-        post.setCreatedAt(LocalDateTime.now());
-        post.setUpdatedAt(LocalDateTime.now());
-        post.setLikes(0); // Inicializar en 0
-        post.setDislikes(0); // Inicializar en 0
-        post.setCommentsCount(0); // Inicializar en 0
-        post.setReportStatus(false); // Inicializar en false
+                return postRepository.save(post);
+            });
+    }
 
-        // Guardar el post y devolverlo como Mono<Post>
-        return postRepository.save(post);
+    // Incrementar likes
+    public Mono<Post> incrementLikes(String postId) {
+        return postRepository.findById(postId)
+            .flatMap(post -> {
+                post.setLikes(post.getLikes() + 1);  // Incrementar el contador de likes
+                return postRepository.save(post);  // Guardar el post con el contador actualizado
+            });
+    }
+
+    // Incrementar dislikes
+    public Mono<Post> incrementDislikes(String postId) {
+        return postRepository.findById(postId)
+            .flatMap(post -> {
+                post.setDislikes(post.getDislikes() + 1);  // Incrementar el contador de dislikes
+                return postRepository.save(post);  // Guardar el post con el contador actualizado
+            });
     }
 }
