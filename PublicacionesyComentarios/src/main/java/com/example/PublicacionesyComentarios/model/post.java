@@ -3,6 +3,7 @@ package com.example.PublicacionesyComentarios.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Document(collection = "posts")
@@ -12,8 +13,8 @@ public class Post {
     private String id;
     private String userId;
     private String content;
-    private List<String> media; // Lista de URLs de imágenes/videos
-    private List<String> tags; // Lista de tags
+    private List<String> media = new ArrayList<>(); // Lista de URLs de imágenes/videos
+    private List<String> tags = new ArrayList<>(); // Lista de tags
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private int likes;

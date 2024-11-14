@@ -5,6 +5,8 @@ import com.example.PublicacionesyComentarios.repository.PostRepository;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class PostService {
@@ -18,22 +20,27 @@ public class PostService {
     }
 
     // Crear un post
-    public Mono<Post> createPost(String content) {
-        return userService.getUserId()
-            .flatMap(userId -> {
-                Post post = new Post();
-                post.setUserId(userId);
-                post.setContent(content);
-                post.setCreatedAt(LocalDateTime.now());
-                post.setUpdatedAt(LocalDateTime.now());
-                post.setLikes(0); // Inicializar en 0
-                post.setDislikes(0); // Inicializar en 0
-                post.setCommentsCount(0); // Inicializar en 0
-                post.setReportStatus(false); // Inicializar en false
+  // En PostService.java
+public Mono<Post> createPost(String content, List<String> media, List<String> tags) {
+    return Mono.just("userId-de-prueba")  // Simulación del ID de usuario
+        .flatMap(userId -> {
+            Post post = new Post();
+            post.setUserId(userId);
+            post.setContent(content);
+            post.setCreatedAt(LocalDateTime.now());
+            post.setUpdatedAt(LocalDateTime.now());
+            post.setLikes(0);
+            post.setDislikes(0);
+            post.setCommentsCount(0);
+            post.setReportStatus(false);
+            post.setMedia(media != null ? media : new ArrayList<>());
+            post.setTags(tags != null ? tags : new ArrayList<>());  // Asignar los tags
 
-                return postRepository.save(post);
-            });
-    }
+            return postRepository.save(post);
+        });
+}
+
+
 
     // Incrementar likes
     public Mono<Post> incrementLikes(String postId) {

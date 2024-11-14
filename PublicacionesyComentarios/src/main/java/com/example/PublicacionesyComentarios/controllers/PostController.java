@@ -1,7 +1,7 @@
 package com.example.PublicacionesyComentarios.controllers;
 
-import com.example.PublicacionesyComentarios.model.Post;
 import com.example.PublicacionesyComentarios.service.PostService;
+import com.example.PublicacionesyComentarios.model.Post;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,49 +9,28 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestBody;
 import reactor.core.publisher.Mono;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
-import org.springframework.web.bind.annotation.PathVariable;
-
 
 @RestController
 @RequestMapping("/posts")
 public class PostController {
-
     private final PostService postService;
 
     public PostController(PostService postService) {
         this.postService = postService;
     }
 
-    // Endpoint para crear un post
     @PostMapping
-    public Mono<ResponseEntity<Post>> createPost(@RequestBody Map<String, String> request) {
-        String content = request.get("content");
+    public Mono<ResponseEntity<Post>> createPost(@RequestBody Map<String, Object> request) {
+        String content = (String) request.get("content");
+        List<String> media = (List<String>) request.get("media");
+        List<String> tags = (List<String>) request.get("tags");
 
-        return postService.createPost(content)
-            .map(post -> ResponseEntity.status(HttpStatus.CREATED).body(post));
+        // Si no hay 'media' o 'tags' en la solicitud, se asignan listas vacías
+        return postService.createPost(content, media != null ? media : new ArrayList<>(), tags != null ? tags : new ArrayList<>())
+            .map(post -> ResponseEntity.status(HttpStatus.CREATED).body(post))
+            .onErrorReturn(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build());
     }
-    
-
-    // Incrementar likes
-    @PostMapping("/{postId}/like")
-    public Mono<ResponseEntity<Post>> likePost(@PathVariable String postId) {
-        return postService.incrementLikes(postId)
-            .map(post -> ResponseEntity.ok(post));
-    }
-
-    // Incrementar dislikes
-    @PostMapping("/{postId}/dislike")
-    public Mono<ResponseEntity<Post>> dislikePost(@PathVariable String postId) {
-        return postService.incrementDislikes(postId)
-            .map(post -> ResponseEntity.ok(post));
-    }
-
 }
-
-
-
-
-
-
-
