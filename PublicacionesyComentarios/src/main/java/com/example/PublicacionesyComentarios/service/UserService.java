@@ -1,7 +1,6 @@
 package com.example.PublicacionesyComentarios.service;
 
-import org.springframework.stereotype.Service; // Asegúrate de tener esta línea importada
-
+import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
@@ -9,8 +8,9 @@ import reactor.core.publisher.Mono;
 public class UserService {
     private final WebClient webClient;
 
+    // Constructor sin @Autowired
     public UserService(WebClient.Builder webClientBuilder) {
-        this.webClient = webClientBuilder.baseUrl("http://usuario-microservicio/api").build();
+        this.webClient = webClientBuilder.baseUrl("https://1-servicio-autenticacion-production-42b4.up.railway.app/").build();
     }
 
     public Mono<String> getUserId() {

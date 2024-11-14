@@ -2,7 +2,6 @@ package com.example.PublicacionesyComentarios.controllers;
 
 import com.example.PublicacionesyComentarios.model.Comment;
 import com.example.PublicacionesyComentarios.service.CommentService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,7 +12,7 @@ public class CommentController {
 
     private final CommentService commentService;
 
-    @Autowired
+    // Constructor sin @Autowired
     public CommentController(CommentService commentService) {
         this.commentService = commentService;
     }

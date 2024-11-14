@@ -2,7 +2,6 @@ package com.example.PublicacionesyComentarios.service;
 
 import com.example.PublicacionesyComentarios.model.Comment;
 import com.example.PublicacionesyComentarios.repository.CommentRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -13,7 +12,7 @@ public class CommentService {
 
     private final CommentRepository commentRepository;
 
-    @Autowired
+    
     public CommentService(CommentRepository commentRepository) {
         this.commentRepository = commentRepository;
     }
